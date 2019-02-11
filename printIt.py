@@ -13,3 +13,14 @@ def send_text_to_printer(text, com, baud):
 def return_active_coms():
         ports = serial.tools.list_ports.comports()
         return ports
+
+class Baud:
+        rates = [
+                1200,
+                1400,
+                4800,
+                19200,
+                38400,
+                57600,
+                115200
+        ]
