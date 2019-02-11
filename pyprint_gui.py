@@ -4,8 +4,8 @@ from printIt import *
 
 #global UI vars
 # available_coms = return_active_coms()
-available_coms = ["COM1", "COM2", "COM3"]
-print(available_coms)
+available_coms = return_active_coms()
+print(available_coms[0].device)
 
 def print_it():
     text_to_print=text_entry.get("1.0", END)
@@ -34,15 +34,16 @@ combo_frame = ttk.Frame(main_frame)
 combo_frame.grid(column=0, row=0, columnspan=2, sticky=(W, E), padx=10)
 ttk.Label(combo_frame, text="Serial Settings:").grid(column=0, row=0, sticky=(W, E), pady=5)
 
-com_combobox = ttk.Combobox(combo_frame, textvariable=selected_coms, values=available_coms, state="readonly")
+com_combobox = ttk.Combobox(combo_frame, textvariable=selected_coms, values=[com.device for com in available_coms], state="readonly")
 com_combobox.grid(column=1, row=1, sticky=(W, E))
-com_combobox.set(available_coms[0])
+com_combobox.set(available_coms[0].device)
 ttk.Label(combo_frame, text="COM Port").grid(column=0, row=1, sticky=(W))
 
 ttk.Separator(combo_frame, orient=HORIZONTAL).grid(column=1, row=2, sticky=(W, E))
 
 baud_combobox = ttk.Combobox(combo_frame, textvariable=selected_baud, values=Baud.rates, state="readonly")
 baud_combobox.grid(column=1, row=3, sticky=(W, E))
+baud_combobox.set(38400)
 ttk.Label(combo_frame, text="Baud Rate").grid(column=0, row=3, sticky=(W))
 
 text_entry = Text(main_frame, width=48, height=10)
