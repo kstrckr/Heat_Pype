@@ -17,12 +17,28 @@ class Serial_Settings(ttk.Frame):
 
     def __init__(self, parent):
         ttk.Frame.__init__(self, parent)
-        self.active_coms = self.return_active_coms()
+
+        self.active_coms = serial.tools.list_ports.comports()
         
-        ttk.Label(parent, text="Serial Settings:").grid(column=0, row=0, sticky=(tk.W, tk.E), pady=5)
+        ttk.Label(self, text="Serial Settings:").grid(column=0, row=0, sticky=(tk.W, tk.E), pady=5)
+        
+        self.com_combobox = ttk.Combobox(self, values=[com.device for com in self.active_coms], state="readonly")
+        self.com_combobox.grid(column=1, row=1, sticky=(tk.W, tk.E))
+        ttk.Label(self, text="COM Port").grid(column=0, row=1, sticky=(tk.W))
+
+        ttk.Separator(self, orient=tk.HORIZONTAL).grid(column=1, row=2, sticky=(tk.W, tk.E))
+
+        baud_combobox = ttk.Combobox(self, values=self.rates, state="readonly")
+        baud_combobox.grid(column=1, row=3, sticky=(tk.W, tk.E))
+        baud_combobox.set(38400)
+        ttk.Label(self, text="Baud Rate").grid(column=0, row=3, sticky=(tk.W))
+
+        self.grid(column=0, row=0, columnspan=2, sticky=(tk.W, tk.E), padx=10)
+
+        self.set_coms_combobox_state()
+
         
 
-
-    def return_active_coms(self):
-        ports = serial.tools.list_ports.comports()
-        return ports
+    def set_coms_combobox_state(self):
+        if not self.active_coms:
+            self.com_combobox.configure(state='disabled')
