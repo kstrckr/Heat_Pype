@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import ttk
-from printIt import *
+import printIt as prnt
 
 
 from raster_tab import Raster_Tab
@@ -10,12 +10,14 @@ from footer import Footer
 
 def print_it():
     print("Printing")
-    # text_to_print=text_tab.text_entry.get("1.0", END)
-    # com = com_combobox.get()
-    # baud = baud_combobox.get()
+    text_to_print=text_tab.text_entry.get("1.0", END)
+    com = combo_frame.com_combobox.get()
+    baud = combo_frame.baud_combobox.get()
+
+    print(baud)
     
-    # if len(text_to_print) > 0:
-    #     send_text_to_printer(text_to_print, com, baud)
+    if len(text_to_print) > 0:
+        prnt.send_text_to_printer(text_to_print, com, baud)
 
 def clear():
     print("Clearing Text")
@@ -27,27 +29,18 @@ def check_coms():
         else:
                 footer.print_button.configure(state="disabled")
 
-
-#region Root Instantiation
 root = Tk()
 root.title("PyPrint")
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
 root.resizable(False, False)
-#endregion
 
-#region Global Var Bindings
-selected_coms = StringVar()
-selected_baud = IntVar()
-#endregion
-
-#region Main Frame
 main_frame = ttk.Frame(root, padding="1 1 1 1")
 main_frame.grid(column=0, row=0, sticky=(N, W, E, S))
 
-#region Combobox Frame
+
 combo_frame = Serial_Settings(main_frame)
-#endregion
+
 
 tabs = ttk.Notebook(main_frame)
 text_tab = Text_Tab(tabs)
@@ -60,12 +53,9 @@ tabs.grid(column=0, row=1, columnspan=2, padx=10, pady=10)
 footer = Footer(main_frame, print_command=print_it, clear_command=clear)
 
 
-#region Keyboard Shotcut Bindings
 root.bind('<F1>', lambda e: print_it())
-#endregion
 
 #### Main ####
 
-# populate_com_combobox()
 check_coms()
 root.mainloop()
