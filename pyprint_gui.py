@@ -1,58 +1,63 @@
-from tkinter import *
+import tkinter as tk
 from tkinter import ttk
-from printIt import *
+from pyprint.printIt import EpsonCommands as Eps
 
-#global UI vars
-# available_coms = return_active_coms()
-available_coms = return_active_coms()
-print(available_coms[0].device)
+
+from pyprint.rastertab import Raster_Tab
+from pyprint.serialsettings import Serial_Settings
+from pyprint.texttab import Text_Tab
+from pyprint.footer import Footer
 
 def print_it():
-    text_to_print=text_entry.get("1.0", END)
-    com = com_combobox.get()
-    baud = baud_combobox.get()
+    print("Printing")
+    text_to_print = text_tab.text_entry.get("1.0", tk.END)
+    com = combo_frame.com_combobox.get()
+    baud = combo_frame.baud_combobox.get()
+
+    print(baud)
     
     if len(text_to_print) > 0:
-        send_text_to_printer(text_to_print, com, baud)
+        Eps.send_text_to_printer(text_to_print, com, baud)
 
 def clear():
-    text_entry.delete("1.0", END)
+    print("Clearing Text")
+    text_tab.text_entry.delete("1.0", tk.END)
 
-root = Tk()
+def check_coms():
+        if combo_frame.active_coms:
+                print(com.device for com in combo_frame.active_coms)
+        else:
+                footer.print_button.configure(state="disabled")
+
+root = tk.Tk()
 root.title("PyPrint")
-selected_coms = StringVar(root)
-selected_baud = IntVar(root)
-
-main_frame = ttk.Frame(root, padding="1 1 1 1")
-main_frame.grid(column=0, row=0, sticky=(N, W, E, S))
-
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
 root.resizable(False, False)
 
-combo_frame = ttk.Frame(main_frame)
-combo_frame.grid(column=0, row=0, columnspan=2, sticky=(W, E), padx=10)
-ttk.Label(combo_frame, text="Serial Settings:").grid(column=0, row=0, sticky=(W, E), pady=5)
+main_frame = ttk.Frame(root, padding="1 1 1 1")
+main_frame.columnconfigure(0, weight=1)
+main_frame.columnconfigure(1, weight=1)
+main_frame.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
-com_combobox = ttk.Combobox(combo_frame, textvariable=selected_coms, values=[com.device for com in available_coms], state="readonly")
-com_combobox.grid(column=1, row=1, sticky=(W, E))
-com_combobox.set(available_coms[0].device)
-ttk.Label(combo_frame, text="COM Port").grid(column=0, row=1, sticky=(W))
 
-ttk.Separator(combo_frame, orient=HORIZONTAL).grid(column=1, row=2, sticky=(W, E))
+combo_frame = Serial_Settings(main_frame)
 
-baud_combobox = ttk.Combobox(combo_frame, textvariable=selected_baud, values=Baud.rates, state="readonly")
-baud_combobox.grid(column=1, row=3, sticky=(W, E))
-baud_combobox.set(38400)
-ttk.Label(combo_frame, text="Baud Rate").grid(column=0, row=3, sticky=(W))
 
-text_entry = Text(main_frame, width=48, height=10)
-text_entry.grid(column=0, row=1, columnspan=2, sticky=(N, W), padx=10, pady=10)
+tabs = ttk.Notebook(main_frame)
+text_tab = Text_Tab(tabs)
+raster_tab = Raster_Tab(tabs)
+tabs.add(text_tab, text="  Text  ")
+tabs.add(raster_tab, text=" Raster ")
+tabs.grid(column=0, row=1, columnspan=2, padx=10, pady=10)
 
-ttk.Button(main_frame, text="Print", command=print_it).grid(column=0, row=2, sticky=(W, E), padx=10, pady=10)
-ttk.Button(main_frame, text="Clear", command=clear).grid(column=1, row=2, sticky=(W, E), padx=10, pady=10)
+
+footer = Footer(main_frame, print_command=print_it, clear_command=clear)
+
 
 root.bind('<F1>', lambda e: print_it())
-#### Main Loop ####
 
+#### Main ####
+
+check_coms()
 root.mainloop()
