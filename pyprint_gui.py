@@ -10,7 +10,7 @@ from footer import Footer
 
 def print_it():
     print("Printing")
-    text_to_print=text_tab.text_entry.get("1.0", END)
+    text_to_print = text_tab.text_entry.get("1.0", END)
     com = combo_frame.com_combobox.get()
     baud = combo_frame.baud_combobox.get()
 
@@ -36,6 +36,8 @@ root.rowconfigure(0, weight=1)
 root.resizable(False, False)
 
 main_frame = ttk.Frame(root, padding="1 1 1 1")
+main_frame.columnconfigure(0, weight=1)
+main_frame.columnconfigure(1, weight=1)
 main_frame.grid(column=0, row=0, sticky=(N, W, E, S))
 
 

@@ -16,7 +16,8 @@ class Serial_Settings(ttk.Frame):
     ]
 
     def __init__(self, parent):
-        ttk.Frame.__init__(self, parent)
+        # ttk.Frame.__init__(self, parent)
+        super().__init__(parent)
 
         self.selected_coms = tk.StringVar()
         self.selected_baud = tk.IntVar()
@@ -43,3 +44,5 @@ class Serial_Settings(ttk.Frame):
     def set_coms_combobox_state(self):
         if not self.active_coms:
             self.com_combobox.configure(state='disabled')
+        else:
+            self.com_combobox.set(self.active_coms[0].device)
