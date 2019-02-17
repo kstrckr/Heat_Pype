@@ -1,27 +1,27 @@
-from tkinter import *
+import tkinter as tk
 from tkinter import ttk
-import printIt as prnt
+from pyprint.printIt import EpsonCommands as Eps
 
 
-from raster_tab import Raster_Tab
-from serial_settings import Serial_Settings
-from text_tab import Text_Tab
-from footer import Footer
+from pyprint.rastertab import Raster_Tab
+from pyprint.serialsettings import Serial_Settings
+from pyprint.texttab import Text_Tab
+from pyprint.footer import Footer
 
 def print_it():
     print("Printing")
-    text_to_print = text_tab.text_entry.get("1.0", END)
+    text_to_print = text_tab.text_entry.get("1.0", tk.END)
     com = combo_frame.com_combobox.get()
     baud = combo_frame.baud_combobox.get()
 
     print(baud)
     
     if len(text_to_print) > 0:
-        prnt.send_text_to_printer(text_to_print, com, baud)
+        Eps.send_text_to_printer(text_to_print, com, baud)
 
 def clear():
     print("Clearing Text")
-    text_tab.text_entry.delete("1.0", END)
+    text_tab.text_entry.delete("1.0", tk.END)
 
 def check_coms():
         if combo_frame.active_coms:
@@ -29,7 +29,7 @@ def check_coms():
         else:
                 footer.print_button.configure(state="disabled")
 
-root = Tk()
+root = tk.Tk()
 root.title("PyPrint")
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
@@ -38,7 +38,7 @@ root.resizable(False, False)
 main_frame = ttk.Frame(root, padding="1 1 1 1")
 main_frame.columnconfigure(0, weight=1)
 main_frame.columnconfigure(1, weight=1)
-main_frame.grid(column=0, row=0, sticky=(N, W, E, S))
+main_frame.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
 
 combo_frame = Serial_Settings(main_frame)
