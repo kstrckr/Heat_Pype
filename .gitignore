@@ -1,6 +1,5 @@
 /Include
-*/__pycache__/
-/__pycache__
+*__pycache__*
 /Lib
 /Scripts
 /tcl
