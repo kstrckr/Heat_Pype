@@ -15,7 +15,7 @@ class Serial_Settings(ttk.Frame):
         115200
     ]
 
-    def __init__(self, parent):
+    def __init__(self, parent, **kwargs):
         # ttk.Frame.__init__(self, parent)
         super().__init__(parent)
 
@@ -37,7 +37,7 @@ class Serial_Settings(ttk.Frame):
         self.baud_combobox.set(38400)
         ttk.Label(self, text="Baud Rate").grid(column=0, row=3, sticky=(tk.W))
 
-        self.grid(column=0, row=0, columnspan=2, sticky=(tk.W, tk.E), padx=10)
+        self.grid(kwargs)
 
         self.set_coms_combobox_state()
 

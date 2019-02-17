@@ -1,11 +1,24 @@
 import tkinter as tk
 from tkinter import ttk
 
-class Footer():
+class Footer(ttk.Frame):
 
     def __init__(self, parent, *args, **kwargs):
-        self.print_button = ttk.Button(parent, text="Print", command=kwargs['print_command'])
-        self.print_button.grid(column=0, row=2, sticky=(tk.W, tk.E), ipady=10, padx=10, pady=10)
 
-        self.clear_button = ttk.Button(parent, text="Clear", command=kwargs['clear_command'])
-        self.clear_button.grid(column=1, row=2, sticky=(tk.W, tk.E), ipady=10, padx=10, pady=10)
+        super().__init__(parent)
+
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+
+        self.print_button = ttk.Button(self, text="Print")
+        self.print_button.grid(column=0, row=0, sticky=(tk.W, tk.E), ipady=10, padx=10, pady=10)
+
+        self.clear_button = ttk.Button(self, text="Clear")
+        self.clear_button.grid(column=1, row=0, sticky=(tk.W, tk.E), ipady=10, padx=10, pady=10)
+
+        self.grid(kwargs)
+
+    def bind_buttons(self, print_command, clear_command):
+        self.print_button.configure(command=print_command)
+        self.clear_button.configure(command=clear_command)
+        

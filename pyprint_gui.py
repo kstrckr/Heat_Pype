@@ -2,15 +2,13 @@ import tkinter as tk
 from tkinter import ttk
 from pyprint.printIt import EpsonCommands as Eps
 
-
-from pyprint.rastertab import Raster_Tab
 from pyprint.serialsettings import Serial_Settings
-from pyprint.texttab import Text_Tab
+from pyprint.printingtabs import Printing_Tabs
 from pyprint.footer import Footer
 
 def print_it():
     print("Printing")
-    text_to_print = text_tab.text_entry.get("1.0", tk.END)
+    text_to_print = tabs.Get_Text_Input()
     com = combo_frame.com_combobox.get()
     baud = combo_frame.baud_combobox.get()
 
@@ -21,7 +19,7 @@ def print_it():
 
 def clear():
     print("Clearing Text")
-    text_tab.text_entry.delete("1.0", tk.END)
+    tabs.Clear_Text()
 
 def check_coms():
         if combo_frame.active_coms:
@@ -41,19 +39,10 @@ main_frame.columnconfigure(1, weight=1)
 main_frame.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
 
-combo_frame = Serial_Settings(main_frame)
-
-
-tabs = ttk.Notebook(main_frame)
-text_tab = Text_Tab(tabs)
-raster_tab = Raster_Tab(tabs)
-tabs.add(text_tab, text="  Text  ")
-tabs.add(raster_tab, text=" Raster ")
-tabs.grid(column=0, row=1, columnspan=2, padx=10, pady=10)
-
-
-footer = Footer(main_frame, print_command=print_it, clear_command=clear)
-
+combo_frame = Serial_Settings(main_frame, column=0, row=0,  columnspan=2, sticky=(tk.W, tk.E), padx=10)
+tabs = Printing_Tabs(main_frame, column=0, row=1, columnspan=2, padx=10, pady=10)
+footer = Footer(main_frame, column=0, row=2, columnspan=2, sticky=(tk.W, tk.E))
+footer.bind_buttons(print_it, clear)
 
 root.bind('<F1>', lambda e: print_it())
 
