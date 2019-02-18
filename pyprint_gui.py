@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from pyprint.printIt import EpsonCommands as Eps
 
+from pyprint.menubars import PyPrintMenus
 from pyprint.serialsettings import Serial_Settings
 from pyprint.printingtabs import Printing_Tabs
 from pyprint.footer import Footer
@@ -28,10 +29,17 @@ def check_coms():
                 footer.print_button.configure(state="disabled")
 
 root = tk.Tk()
+root.option_add('*tearOff', tk.FALSE)
+
+
 root.title("PyPrint")
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
 root.resizable(False, False)
+
+menubar = PyPrintMenus(root)
+root.config(menu=menubar)
+
 
 main_frame = ttk.Frame(root, padding="1 1 1 1")
 main_frame.columnconfigure(0, weight=1)
@@ -39,7 +47,7 @@ main_frame.columnconfigure(1, weight=1)
 main_frame.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
 
 
-combo_frame = Serial_Settings(main_frame, column=0, row=0,  columnspan=2, sticky=(tk.W, tk.E), padx=10)
+combo_frame = Serial_Settings(main_frame, column=0, row=0,  sticky=(tk.W), padx=10)
 tabs = Printing_Tabs(main_frame, column=0, row=1, columnspan=2, padx=10, pady=10)
 footer = Footer(main_frame, column=0, row=2, columnspan=2, sticky=(tk.W, tk.E))
 footer.bind_buttons(print_it, clear)
