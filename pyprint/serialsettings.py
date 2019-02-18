@@ -27,19 +27,19 @@ class Serial_Settings(ttk.Frame):
         ttk.Label(self, text="Serial Settings:").grid(column=0, row=0, sticky=(tk.W, tk.E), pady=5)
         
         self.com_combobox = ttk.Combobox(self, textvariable=self.selected_coms, values=[com.device for com in self.active_coms], state="readonly")
-        self.com_combobox.grid(column=1, row=1, sticky=(tk.W, tk.E))
+        self.com_combobox.grid(column=1, row=1, pady=5)
         ttk.Label(self, text="COM Port").grid(column=0, row=1, sticky=(tk.W))
 
-        ttk.Separator(self, orient=tk.HORIZONTAL).grid(column=1, row=2, sticky=(tk.W, tk.E))
+        ttk.Separator(self, orient=tk.HORIZONTAL).grid(column=1, row=2)
 
         self.baud_combobox = ttk.Combobox(self, textvariable=self.selected_baud, values=self.rates, state="readonly")
-        self.baud_combobox.grid(column=1, row=3, sticky=(tk.W, tk.E))
+        self.baud_combobox.grid(column=1, row=3, pady=5)
         self.baud_combobox.set(38400)
         ttk.Label(self, text="Baud Rate").grid(column=0, row=3, sticky=(tk.W))
 
-        self.grid(kwargs)
-
         self.set_coms_combobox_state()
+
+        self.grid(kwargs)
 
     def set_coms_combobox_state(self):
         if not self.active_coms:
