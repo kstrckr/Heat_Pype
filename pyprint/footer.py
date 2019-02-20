@@ -9,6 +9,7 @@ class Footer(ttk.Frame):
 
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
+        self.rowconfigure(0, weight=1)
 
         self.print_button = ttk.Button(self, text="Print")
         self.print_button.grid(column=0, row=0, sticky=(tk.W, tk.E), ipady=10, padx=10, pady=10)

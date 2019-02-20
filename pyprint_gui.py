@@ -34,7 +34,6 @@ root.option_add('*tearOff', tk.FALSE)
 
 root.title("PyPrint")
 root.columnconfigure(0, weight=1)
-root.rowconfigure(0, weight=1)
 root.resizable(False, False)
 
 menubar = PyPrintMenus(root)
