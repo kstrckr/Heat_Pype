@@ -8,10 +8,11 @@ class Printing_Tabs(ttk.Notebook):
     def __init__(self, parent, **kwargs):
         super().__init__(parent)
 
-        self.text_tab = tt.Text_Tab(self)
         self.raster_tab = rt.Raster_Tab(self)
-        self.add(self.text_tab, text="  Text  ")
+        self.text_tab = tt.Text_Tab(self)
+        
         self.add(self.raster_tab, text=" Raster ")
+        self.add(self.text_tab, text="  Text  ")
         self.grid(kwargs)
 
 

@@ -12,11 +12,10 @@ class Footer(ttk.Frame):
         self.rowconfigure(0, weight=1)
 
         self.print_button = ttk.Button(self, text="Print")
-        self.print_button.grid(column=0, row=0, sticky=(tk.W, tk.E), ipady=10, padx=10, pady=10)
+        self.print_button.grid(column=0, row=0, sticky=(tk.E, tk.S, tk.W), ipady=10, padx=10)
 
         self.clear_button = ttk.Button(self, text="Clear")
-        self.clear_button.grid(column=1, row=0, sticky=(tk.W, tk.E), ipady=10, padx=10, pady=10)
-
+        self.clear_button.grid(column=1, row=0, sticky=(tk.E, tk.S, tk.W), ipady=10, padx=10)
         self.grid(kwargs)
 
     def bind_buttons(self, print_command, clear_command):

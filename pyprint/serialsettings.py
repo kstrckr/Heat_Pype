@@ -17,7 +17,6 @@ class Serial_Settings(ttk.Frame):
     ]
 
     def __init__(self, parent, **kwargs):
-        # ttk.Frame.__init__(self, parent)
         super().__init__(parent)
 
         self.selected_coms = tk.StringVar()

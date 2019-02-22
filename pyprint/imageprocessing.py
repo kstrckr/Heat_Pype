@@ -8,7 +8,7 @@ class Pil_Image():
     def __init__(self, path_to_image):
         self.image_rotation = 0
         self.pil_img = Image.open(path_to_image)
-
+        
         self.refresh_output(self.pil_img)
         # self.image_bytes = self.return_img_bytes(bw)
 
@@ -40,7 +40,8 @@ class Pil_Image():
         resize_dimensions = self.calculate_resize_dimensions(image_input)
         print(resize_dimensions)
         resized = image_input.resize(resize_dimensions)
-
+        
         bw = resized.convert('1')
         
         self.tkImage = ImageTk.PhotoImage(bw)
+        self.sourceImage = ImageTk.PhotoImage(resized)
