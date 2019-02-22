@@ -9,6 +9,7 @@ class Serial_Settings(ttk.Frame):
         1200,
         1400,
         4800,
+        9600,
         19200,
         38400,
         57600,
