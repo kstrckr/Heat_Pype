@@ -33,7 +33,6 @@ class MainFrame(ttk.Frame):
         self.columnconfigure(1, weight=1)
         self.grid(kwargs)
 
-
         self.combo_frame = Serial_Settings(self, column=0, row=0,  sticky=(tk.W), padx=10)
         self.action_buttons = Footer(self, column=1, row=0, sticky=(tk.N, tk.E, tk.S, tk.W), padx=10)
         self.action_buttons.bind_buttons(self.print_it, self.clear)
