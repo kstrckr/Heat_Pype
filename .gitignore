@@ -1,7 +1,1 @@
-/Include
-*__pycache__*
-/Lib
-/Scripts
-/tcl
-
-*.gif
+/venv
