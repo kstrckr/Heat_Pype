@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 
-import pyprint.texttab as tt
-import pyprint.rastertab as rt
+import heatpype.texttab as tt
+import heatpype.rastertab as rt
 
 class Printing_Tabs(ttk.Notebook):
     def __init__(self, parent, **kwargs):

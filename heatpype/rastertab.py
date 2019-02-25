@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog as fd
 
-from pyprint.imageprocessing import Pil_Image
+from heatpype.imageprocessing import Pil_Image
 
 class Raster_Tab(ttk.Frame):
     def __init__(self, parent):
