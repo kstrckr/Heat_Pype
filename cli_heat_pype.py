@@ -1,3 +1,5 @@
+#python -m serial.tools.list_ports
+
 import argparse
 
 import serial

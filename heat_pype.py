@@ -1,3 +1,4 @@
+import os.path
 import tkinter as tk
 from tkinter import ttk
 from heatpype.printIt import EpsonCommands as Eps
@@ -13,7 +14,7 @@ from heatpype.footer import Footer
 class HeatPype(tk.Tk):
     def __init__(self):
         super().__init__()
-
+        self.icon_path = os.path.join('.', 'printer.ico')
         self.option_add('*tearOff', tk.FALSE)
 
 
@@ -22,6 +23,8 @@ class HeatPype(tk.Tk):
         self.resizable(False, False)
 
         menubar = PyPrintMenus(self)
+        self.iconbitmap(self.icon_path)
+
         self.config(menu=menubar)
 
 

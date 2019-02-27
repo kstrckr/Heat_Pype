@@ -8,6 +8,7 @@ class PyPrintMenus(tk.Menu):
         super().__init__(parent)
 
         self.menu_file = tk.Menu(self)
+        
         self.add_cascade(menu=self.menu_file, label='File')
         self.menu_file.add_command(label='Quit', command=exit)
 
