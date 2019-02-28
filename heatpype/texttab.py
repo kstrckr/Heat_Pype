@@ -3,7 +3,6 @@ from tkinter import ttk
 
 class Text_Tab(ttk.Frame):
     def __init__(self, parent):
-        # ttk.Frame.__init__(self, parent)
         super().__init__(parent)
 
         self.columnconfigure(0, weight=1)

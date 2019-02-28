@@ -6,10 +6,7 @@ from heatpype.printIt import EpsonCommands as Eps
 from heatpype.menubars import PyPrintMenus
 from heatpype.serialsettings import Serial_Settings
 from heatpype.printingtabs import Printing_Tabs
-from heatpype.footer import Footer
-
-
-
+from heatpype.printbuttons import PrintButtons
 
 class HeatPype(tk.Tk):
     def __init__(self):
@@ -37,7 +34,7 @@ class MainFrame(ttk.Frame):
         self.grid(kwargs)
 
         self.combo_frame = Serial_Settings(self, column=0, row=0,  sticky=(tk.W), padx=10)
-        self.action_buttons = Footer(self, column=1, row=0, sticky=(tk.N, tk.E, tk.S, tk.W), padx=10)
+        self.action_buttons = PrintButtons(self, column=1, row=0, sticky=(tk.N, tk.E, tk.S, tk.W), padx=10)
         self.action_buttons.bind_buttons(self.print_it, self.clear)
         self.tabs = Printing_Tabs(self, column=0, row=1, columnspan=2, padx=10, pady=10)
 
@@ -45,6 +42,8 @@ class MainFrame(ttk.Frame):
 
         if (coms_detected):
             root.bind('<F1>', self.print_it)
+
+        root.bind('<Control-q>', exit)
 
 
     def print_it(self):
@@ -64,17 +63,18 @@ class MainFrame(ttk.Frame):
 
     def check_coms(self):
         if self.combo_frame.active_coms:
-                print(com.device for com in self.combo_frame.active_coms)
+                print(list(com.device for com in self.combo_frame.active_coms))
                 return True
         else:
                 self.action_buttons.print_button.configure(state="disabled")
                 return False
 
-pyPrint = HeatPype()
-mainFrame = MainFrame(pyPrint, column=0, row=0, sticky=(tk.N, tk.E, tk.S, tk.W))
+
 
 
 #### Main ####
 
-# mainFrame.check_coms()
-pyPrint.mainloop()
+if __name__ == "__main__":
+    pyPrint = HeatPype()
+    mainFrame = MainFrame(pyPrint, column=0, row=0, sticky=(tk.N, tk.E, tk.S, tk.W))
+    pyPrint.mainloop()
