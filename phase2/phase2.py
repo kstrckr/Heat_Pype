@@ -43,6 +43,7 @@ main_frame.columnconfigure(1, weight=1)
 main_frame.rowconfigure(0, weight=1)
 
 main_frame.grid()
+#endregion
 
 #region settings label
 settings_label = ttk.Label(main_frame, text="Settings:")
@@ -89,8 +90,7 @@ print_button.grid(column=0, row=4, columnspan=2, sticky=(tk.W, tk.E))
 # nbook.grid(row=3, column=0, columnspan=2)
 #endregion
 
-for child in main_frame.winfo_children(): child.grid_configure(padx=5, pady=5)
-
-
+for child in main_frame.winfo_children():
+    child.grid_configure(padx=5, pady=5)
 
 root.mainloop()

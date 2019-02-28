@@ -22,7 +22,7 @@ baud_rate = tk.StringVar()
 
 main_frame = ttk.Frame(root, padding="1 1 1 1")
 
-main_frame.columnconfigure(1, weight=1)
+main_frame.columnconfigure(0, weight=1)
 main_frame.rowconfigure(0, weight=1)
 
 main_frame.grid()
@@ -36,6 +36,7 @@ main_frame.grid()
 #region com label
 # com_label = ttk.Label(main_frame, text="COM Port")
 # com_label.grid(column=0, row=1)
+
 # com_entry = ttk.Entry(main_frame, textvariable=com_string)
 # com_entry.grid(column=1, row=1, sticky=(tk.W))
 #endreg

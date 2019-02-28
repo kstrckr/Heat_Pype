@@ -46,7 +46,6 @@ class Menu_Bar(tk.Menu):
 
 root = tk.Tk()
 root.resizable(False, False)
-endpoint_x = tk.DoubleVar()
 
 main_frame = ttk.Frame(root, padding="1 1 1 1")
 main_frame.pack(side="top")
