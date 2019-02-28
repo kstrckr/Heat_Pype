@@ -43,8 +43,14 @@ class MainFrame(ttk.Frame):
         if (coms_detected):
             root.bind('<F1>', self.print_it)
 
+        # def proof_of_callback_concept():
+        #     print("Did i crash yet?")
+
         root.bind('<Control-q>', exit)
         root.bind('<Control-Q>', exit)
+        # root.bind('<Control-w>', proof_of_callback_concept)
+
+        
 
 
     def print_it(self):
