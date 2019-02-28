@@ -44,6 +44,7 @@ class MainFrame(ttk.Frame):
             root.bind('<F1>', self.print_it)
 
         root.bind('<Control-q>', exit)
+        root.bind('<Control-Q>', exit)
 
 
     def print_it(self):
