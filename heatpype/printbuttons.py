@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-class Footer(ttk.Frame):
+class PrintButtons(ttk.Frame):
 
     def __init__(self, parent, *args, **kwargs):
 
