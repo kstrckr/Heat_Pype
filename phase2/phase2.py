@@ -79,15 +79,15 @@ print_button.grid(column=0, row=4, columnspan=2, sticky=(tk.W, tk.E))
 
 #region notebook
 
-# nbook = ttk.Notebook(main_frame)
+nbook = ttk.Notebook(main_frame)
 
-# nb_text_frame = ttk.Frame(nbook)
-# nbook.add(nb_text_frame, text="Text")
+nb_text_frame = ttk.Frame(nbook)
+nbook.add(nb_text_frame, text="Text")
 
-# text_box = tk.Text(nb_text_frame, width=48, height=20)
-# text_box.grid(column=0, row=0)
+text_box = tk.Text(nb_text_frame, width=48, height=20)
+text_box.grid(column=0, row=0)
 
-# nbook.grid(row=3, column=0, columnspan=2)
+nbook.grid(row=3, column=0, columnspan=2)
 #endregion
 
 for child in main_frame.winfo_children():

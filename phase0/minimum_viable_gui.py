@@ -13,7 +13,7 @@ mainFrame = ttk.Frame(root, padding="5 5 5 5")
 
 label = ttk.Label(mainFrame, anchor="center", text="Hello World")
 
-helloButton = ttk.Button(mainFrame, text="ttk Themed")
+helloButton = ttk.Button(mainFrame, text="ttk Themed", command=show_old_button_style)
 
 oldButton = tk.Button(mainFrame, text="Non-Themed")
 
