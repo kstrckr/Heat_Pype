@@ -24,7 +24,7 @@ class Raster_Tab(ttk.Frame):
         self.rotate_right_button.grid(column=0, row=2, ipady=15, padx=30, ipadx=15, pady=30, sticky=(tk.N))
 
         self.source_canvas = tk.Canvas(self, width=475)
-        self.source_canvas.grid(column=1, row=0, rowspan=4, padx=10, pady=10 )
+        self.source_canvas.grid(column=1, row=0, rowspan=4 )
 
         self.processed_canvas = tk.Canvas(self, width=475)
         self.processed_canvas.grid(column=3, row=0, rowspan=4, padx=10, pady=10)
@@ -57,6 +57,7 @@ class Raster_Tab(ttk.Frame):
 
     def define_crop_box(self, e):
         self.crop_bounding_box.update_dynamic_point(e.x, e.y)
+        self.draw_crop_box(self.crop_bounding_box)
         print(self.crop_bounding_box)
 
     def initiate_crop(self, e):
@@ -66,5 +67,6 @@ class Raster_Tab(ttk.Frame):
         static_point, dynamic_point = self.crop_bounding_box.get_points()
         x1, y1 = static_point
         x2, y2 = dynamic_point
-        self.source_canvas.create_rectangle(x1, y1, x2, y2, width=1, color="black", tag="crop_box")
+        self.source_canvas.delete("crop_box")
+        self.source_canvas.create_rectangle((x1, y1, x2, y2), width=1, outline="black", tag="crop_box")
     
