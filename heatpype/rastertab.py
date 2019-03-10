@@ -7,7 +7,7 @@ from heatpype.tools.cropboundingbox import Crop_Bounding_Box
 
 class Raster_Tab(ttk.Frame):
 
-    printer_width = 580
+    printer_width = 512
 
     def __init__(self, parent):
         super().__init__(parent)

@@ -1,11 +1,11 @@
 from io import BytesIO
 
-from PIL import Image, ImageTk
+from PIL import Image, ImageOps, ImageTk
 
 
 class Pil_Image():
 
-    printer_width = 580
+    printer_width = 512
 
     def __init__(self, path_to_image):
         self.image_rotation = 0
@@ -15,8 +15,8 @@ class Pil_Image():
         # self.image_bytes = self.return_img_bytes(bw)
 
     def return_printable_bytes(self):
-
-        return self.converted_output.invert().tobytes()
+        # inverted_img = ImageOps.invert(self.converted_output)
+        return self.printable_output.tobytes()
 
     def return_processed_img_dimensions(self):
         return (self.converted_output.width, self.converted_output.height)
@@ -67,6 +67,7 @@ class Pil_Image():
         else:
             preprocessed_input = resized_input
         
+        self.printable_output = ImageOps.invert(preprocessed_input).convert('1')
         self.converted_output = preprocessed_input.convert('1')
         self.tkImage = ImageTk.PhotoImage(self.converted_output)
         self.sourceImage = ImageTk.PhotoImage(resized_input)
