@@ -55,8 +55,8 @@ class Pil_Image():
 
     def refresh_output(self):
         resize_dimensions = self.calculate_resize_dimensions(self.pil_img)
-        
-        resized_input = self.pil_img.rotate(self.image_rotation).resize(resize_dimensions)
+
+        resized_input = self.pil_img.resize(resize_dimensions).rotate(self.image_rotation, expand=True)
 
         if self.crop_values:
             mapped_values = self.calculate_crop_ratio(self.crop_values)
