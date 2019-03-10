@@ -9,7 +9,7 @@ class Pil_Image():
         self.image_rotation = 0
         self.pil_img = Image.open(path_to_image)
         self.crop_values = None
-        self.refresh_output(self.pil_img)
+        self.refresh_output()
         # self.image_bytes = self.return_img_bytes(bw)
 
     # def return_img_bytes(self, image):
@@ -36,7 +36,7 @@ class Pil_Image():
             self.image_rotation = 0
         
         # rotated_img = self.pil_img.rotate(self.image_rotation, expand=True)
-        # self.refresh_output(rotated_img)
+        self.refresh_output()
 
     def apply_crop(self, crop_bounding_box):
         initial_point, dynamic_point = crop_bounding_box
@@ -44,7 +44,7 @@ class Pil_Image():
         x2, y2 = dynamic_point
         self.crop_values = (x1, y1, x2, y2)
         print(self.crop_values)
-        self.refresh_output(self.pil_img)
+        self.refresh_output()
 
     def calculate_crop_ratio(self, raw_crop_values):
         ratio = self.pil_img.width/475
@@ -53,14 +53,15 @@ class Pil_Image():
         return tuple(mapped_crop)
 
 
-    def refresh_output(self, image_input):
-        resize_dimensions = self.calculate_resize_dimensions(image_input)
-        resized_input = image_input.resize(resize_dimensions)
+    def refresh_output(self):
+        resize_dimensions = self.calculate_resize_dimensions(self.pil_img)
+        
+        resized_input = self.pil_img.rotate(self.image_rotation).resize(resize_dimensions)
 
         if self.crop_values:
             mapped_values = self.calculate_crop_ratio(self.crop_values)
             # print(mapped_values)
-            preprocessed_input = image_input.crop(mapped_values).resize(resize_dimensions)
+            preprocessed_input = self.pil_img.rotate(self.image_rotation).crop(mapped_values).resize(resize_dimensions)
         else:
             preprocessed_input = resized_input
         

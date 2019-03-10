@@ -9,6 +9,8 @@ class Raster_Tab(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
 
+        self.crop_bounding_box = None
+
         for col in range(0,4):
             self.columnconfigure(col, weight=1)
 
