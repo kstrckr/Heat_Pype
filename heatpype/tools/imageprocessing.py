@@ -44,7 +44,6 @@ class Pil_Image():
         x1, y1 = initial_point
         x2, y2 = dynamic_point
         self.crop_values = (x1, y1, x2, y2)
-        print(self.crop_values)
         self.refresh_output()
 
     def calculate_crop_ratio(self, input_img, raw_crop_values):

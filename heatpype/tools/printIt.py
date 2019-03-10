@@ -46,7 +46,6 @@ class EpsonCommands():
         print(byte_length)
         pL = int(byte_length % 256)
         pH = int(byte_length / 256)
-        print(pL, pH)
         return (bytes([pL]), bytes([pH]))
 
 
@@ -69,7 +68,5 @@ class EpsonCommands():
         full_command = b"".join([command, pL, pH, m, fn, a, xScale, yScale, c, xL, xH, yL, yH])
 
         full_raster_tx = b"".join([full_command, raster_data_bytes])
-
-        # print(full_raster_tx)
 
         return full_raster_tx

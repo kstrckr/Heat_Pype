@@ -52,9 +52,6 @@ class MainFrame(ttk.Frame):
         width, height = self.tabs.Get_Raster_Dimensions()
         com = self.combo_frame.com_combobox.get()
         baud = self.combo_frame.baud_combobox.get()
-
-        print(baud)
-        
         Eps.print_raster_data(width, height, bytes_to_print, com, baud)
 
     def clear(self):
@@ -63,7 +60,6 @@ class MainFrame(ttk.Frame):
 
     def check_coms(self):
         if self.combo_frame.active_coms:
-                print(list(com.device for com in self.combo_frame.active_coms))
                 return True
         else:
                 self.action_buttons.print_button.configure(state="disabled")
