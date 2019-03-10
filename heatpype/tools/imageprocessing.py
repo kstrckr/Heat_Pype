@@ -18,6 +18,9 @@ class Pil_Image():
 
         return self.converted_output.invert().tobytes()
 
+    def return_processed_img_dimensions(self):
+        return (self.converted_output.width, self.converted_output.height)
+
     def calculate_resize_dimensions(self, source_img):
         width = source_img.width
         height = source_img.height

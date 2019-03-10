@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog as fd
 
-from heatpype.imageprocessing import Pil_Image
+from heatpype.tools.imageprocessing import Pil_Image
 from heatpype.tools.cropboundingbox import Crop_Bounding_Box
 
 class Raster_Tab(ttk.Frame):

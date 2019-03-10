@@ -1,7 +1,7 @@
 import os.path
 import tkinter as tk
 from tkinter import ttk
-from heatpype.printIt import EpsonCommands as Eps
+from heatpype.tools.printIt import EpsonCommands as Eps
 
 from heatpype.menubars import PyPrintMenus
 from heatpype.serialsettings import Serial_Settings
@@ -46,23 +46,16 @@ class MainFrame(ttk.Frame):
         root.bind('<Control-q>', exit)
         root.bind('<Control-Q>', exit)
 
-        # def proof_of_callback_concept():
-        #     print("Did i crash yet?")
-        # root.bind('<Control-w>', proof_of_callback_concept)
-
-        
-
-
     def print_it(self):
         print("Printing")
-        text_to_print = self.tabs.Get_Text_Input()
+        bytes_to_print = self.tabs.Get_Raster_Bytes()
+        width, height = self.tabs.Get_Raster_Dimensions()
         com = self.combo_frame.com_combobox.get()
         baud = self.combo_frame.baud_combobox.get()
 
         print(baud)
         
-        if len(text_to_print) > 0:
-            Eps.send_text_to_printer(text_to_print, com, baud)
+        Eps.print_raster_data(width, height, bytes_to_print, com, baud)
 
     def clear(self):
         print("Clearing Text")

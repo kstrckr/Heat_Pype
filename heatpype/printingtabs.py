@@ -19,5 +19,11 @@ class Printing_Tabs(ttk.Notebook):
     def Get_Text_Input(self):
         return self.text_tab.text_entry.get("1.0", tk.END)
 
+    def Get_Raster_Bytes(self):
+        return self.raster_tab.pm.return_printable_bytes()
+
+    def Get_Raster_Dimensions(self):
+        return self.raster_tab.pm.return_processed_img_dimensions()
+
     def Clear_Text(self):
         self.text_tab.text_entry.delete("1.0", tk.END)

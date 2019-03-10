@@ -13,11 +13,12 @@ class EpsonCommands():
             ser.write(b"\x1B\x64\x0A")
             ser.write(b"\x1D\x56\x00")
 
-    def print_raster_data(self, width, height, raster_data_bytes):
-        with serial.Serial(port=self.com, dsrdtr=True, baudrate=self.baud) as ser:
+    @classmethod
+    def print_raster_data(self, width, height, raster_data_bytes, com, baud):
+        with serial.Serial(port=com, dsrdtr=True, baudrate=baud) as ser:
             #initialize printer: ESC @
             ser.write(b"\x1B\x40")
-                
+
             #set dpi to 380
             # ser.write(b"\x1d\x28\x4c\x04\x00\x30\x31\x33\x33")
 
@@ -39,7 +40,7 @@ class EpsonCommands():
             #Select cut mode and cut paper GS V
             ser.write(b"\x1D\x56\x41\x64")
     
-
+    @classmethod
     def get_byte_length(self, raster_data_bytes):
         byte_length = len(raster_data_bytes) + 10
         print(byte_length)
@@ -49,7 +50,7 @@ class EpsonCommands():
         return (bytes([pL]), bytes([pH]))
 
 
-
+    @classmethod
     def programatic_raster_printing(self, width, height, raster_data_bytes):
 
         command = bytes.fromhex('1d') + bytes.fromhex('28') + bytes.fromhex('4c')
