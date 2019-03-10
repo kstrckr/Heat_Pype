@@ -35,7 +35,7 @@ class Pil_Image():
         if self.image_rotation == 360 or self.image_rotation == -360:
             self.image_rotation = 0
         
-        # rotated_img = self.pil_img.rotate(self.image_rotation, expand=True)
+        self.pil_img = self.pil_img.rotate(self.image_rotation, expand=True)
         self.refresh_output()
 
     def apply_crop(self, crop_bounding_box):
@@ -56,12 +56,12 @@ class Pil_Image():
     def refresh_output(self):
         resize_dimensions = self.calculate_resize_dimensions(self.pil_img)
 
-        resized_input = self.pil_img.resize(resize_dimensions).rotate(self.image_rotation, expand=True)
+        resized_input = self.pil_img.resize(resize_dimensions)
 
         if self.crop_values:
             mapped_values = self.calculate_crop_ratio(self.crop_values)
             # print(mapped_values)
-            preprocessed_input = self.pil_img.rotate(self.image_rotation).crop(mapped_values).resize(resize_dimensions)
+            preprocessed_input = self.pil_img.crop(mapped_values).resize(resize_dimensions)
         else:
             preprocessed_input = resized_input
         
