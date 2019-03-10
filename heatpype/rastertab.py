@@ -44,6 +44,8 @@ class Raster_Tab(ttk.Frame):
         else:
             self.pm.rotate_image(-90)
             self.update_preview()
+        if self.crop_bounding_box:
+            self.draw_crop_box(self.crop_bounding_box)
 
     def update_preview(self):
         self.source_imng = self.pm.sourceImage
@@ -57,6 +59,8 @@ class Raster_Tab(ttk.Frame):
 
     def define_crop_box(self, e):
         self.crop_bounding_box.update_dynamic_point(e.x, e.y)
+        self.pm.apply_crop(self.crop_bounding_box.get_points())
+        self.update_preview()
         self.draw_crop_box(self.crop_bounding_box)
 
     def initiate_crop(self, e):
