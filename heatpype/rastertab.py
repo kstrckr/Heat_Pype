@@ -54,14 +54,15 @@ class Raster_Tab(ttk.Frame):
         if self.crop_bounding_box:
             self.draw_crop_box(self.crop_bounding_box)
 
-    def define_crop_box(self, e):
-        self.crop_bounding_box.update_dynamic_point(e.x, e.y)
-        self.pm.apply_crop(self.crop_bounding_box)
-        self.update_preview()
-        self.draw_crop_box(self.crop_bounding_box)
-
     def initiate_crop(self, e):
         self.crop_bounding_box = Crop_Bounding_Box(e.x, e.y)
+
+    def define_crop_box(self, e):
+        if self.crop_bounding_box:
+            self.crop_bounding_box.update_dynamic_point(e.x, e.y)
+            self.pm.apply_crop(self.crop_bounding_box)
+            self.update_preview()
+            self.draw_crop_box(self.crop_bounding_box)
 
     def set_translation_reference_point(self, e):
         if self.crop_bounding_box:
@@ -94,7 +95,7 @@ class Raster_Tab(ttk.Frame):
         x2, y2 = dynamic_point
         self.source_canvas.delete("crop_box")
         self.source_canvas.create_rectangle((x1, y1, x2, y2), width=1, outline="white", tag="crop_box")
-        self.source_canvas.create_rectangle((x1-1, y1-1, x2-1, y2-1), width=1, outline="black", tag="crop_box")
+        self.source_canvas.create_rectangle((x1-1, y1-1, x2+1, y2+1), width=1, outline="black", tag="crop_box")
 
     def update_preview(self):
         self.source_imng = self.pm.sourceImage

@@ -45,19 +45,6 @@ class Pil_Image():
         mapped_crop = map(lambda x: x*ratio, raw_crop_values)
         return tuple(mapped_crop)
 
-    def return_ordered_coordinates(self, point_a, point_b):
-        x_a, y_a = point_a
-        x_b, y_b = point_b
-        width = x_b - x_a
-        height = y_b - y_a
-
-        min_x = x_a if width > 0 else x_a + width
-        min_y = y_a if height > 0 else y_a + height
-        max_x = x_b if width > 0 else x_a
-        max_y = y_b if height > 0 else y_a
-
-        return (min_x, min_y, max_x, max_y)
-
     def refresh_output(self):
         rotated_img = self.pil_img.rotate(self.image_rotation, expand=True)
         resize_dimensions = self.calculate_resize_dimensions(rotated_img)
