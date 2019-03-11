@@ -94,7 +94,7 @@ class Raster_Tab(ttk.Frame):
         x2, y2 = dynamic_point
         self.source_canvas.delete("crop_box")
         self.source_canvas.create_rectangle((x1, y1, x2, y2), width=1, outline="white", tag="crop_box")
-        self.source_canvas.create_rectangle((x1-1, y1-1, x2+1, y2+1), width=1, outline="black", tag="crop_box")
+        self.source_canvas.create_rectangle((x1-1, y1-1, x2-1, y2-1), width=1, outline="black", tag="crop_box")
 
     def update_preview(self):
         self.source_imng = self.pm.sourceImage
