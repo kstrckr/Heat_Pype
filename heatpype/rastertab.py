@@ -36,6 +36,8 @@ class Raster_Tab(ttk.Frame):
 
         self.source_canvas.bind("<Button-1>", self.initiate_crop)
         self.source_canvas.bind("<B1-Motion>", self.define_crop_box)
+        self.source_canvas.bind("<B3-Motion>", self.translate_crop_box)
+        self.source_canvas.bind("<Button-3>", self.set_translation_reference_point)
 
     def get_image_path(self):
         self.file_path = fd.askopenfilename()
@@ -71,6 +73,33 @@ class Raster_Tab(ttk.Frame):
 
     def initiate_crop(self, e):
         self.crop_bounding_box = Crop_Bounding_Box(e.x, e.y)
+
+    def set_translation_reference_point(self, e):
+
+        if self.crop_bounding_box:
+            self.crop_bounding_box.sett_reference_popint(e.x, e.y)
+
+    def translate_crop_box(self, e):
+
+        if self.crop_bounding_box:
+            ref_x = self.crop_bounding_box.reference_x
+            ref_y = self.crop_bounding_box.reference_y
+
+            if e.x > ref_x:
+                delta_x = e.x - ref_x
+            else:
+                delta_x = 0 - (ref_x - e.x)
+
+            if e.y > ref_y:
+                delta_y = e.y - ref_y
+            else:
+                delta_y = 0 - (ref_y - e.y)
+
+            self.crop_bounding_box.update_all_points(delta_x, delta_y)
+            self.pm.apply_crop(self.crop_bounding_box.get_points())
+            print(delta_x, delta_y)
+            self.update_preview()
+            self.draw_crop_box(self.crop_bounding_box)
 
     def draw_crop_box(self, crop_bounding_box):
         static_point, dynamic_point = self.crop_bounding_box.get_points()

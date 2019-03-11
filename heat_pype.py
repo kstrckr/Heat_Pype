@@ -66,8 +66,6 @@ class MainFrame(ttk.Frame):
                 return False
 
 
-
-
 #### Main ####
 
 if __name__ == "__main__":
