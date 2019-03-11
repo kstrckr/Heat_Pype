@@ -12,10 +12,8 @@ class Pil_Image():
         self.pil_img = Image.open(path_to_image)
         self.crop_values = None
         self.refresh_output()
-        # self.image_bytes = self.return_img_bytes(bw)
 
     def return_printable_bytes(self):
-        # inverted_img = ImageOps.invert(self.converted_output)
         return self.printable_output.tobytes()
 
     def return_processed_img_dimensions(self):
@@ -24,31 +22,26 @@ class Pil_Image():
     def calculate_resize_dimensions(self, source_img):
         width = source_img.width
         height = source_img.height
-
         ratio = self.printer_width/width
-
         output_height = int(height*ratio)
 
         return (self.printer_width, output_height)
 
     def rotate_image(self, direction):
         self.image_rotation += direction
+
         if self.image_rotation == 360 or self.image_rotation == -360:
             self.image_rotation = 0
         
-        # self.pil_img = self.pil_img.rotate(self.image_rotation, expand=True)
         self.refresh_output()
 
     def apply_crop(self, crop_bounding_box):
-        point_a, point_b = crop_bounding_box
-
-        min_x, min_y, max_x, max_y = self.return_ordered_coordinates(point_a, point_b)
+        min_x, min_y, max_x, max_y = crop_bounding_box.return_ordered_coordinates()
         self.crop_values = (min_x, min_y, max_x, max_y)
         self.refresh_output()
 
     def calculate_crop_ratio(self, input_img, raw_crop_values):
         ratio = input_img.width/self.printer_width
-
         mapped_crop = map(lambda x: x*ratio, raw_crop_values)
         return tuple(mapped_crop)
 

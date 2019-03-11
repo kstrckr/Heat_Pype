@@ -33,3 +33,16 @@ class Crop_Bounding_Box:
 
     def get_points(self):
         return ((self.initial_x, self.initial_y),(self.dynamic_x, self.dynamic_y))
+
+    def return_ordered_coordinates(self):
+        x_a, y_a = (self.initial_x, self.initial_y)
+        x_b, y_b = (self.dynamic_x, self.dynamic_y)
+        width = x_b - x_a
+        height = y_b - y_a
+
+        min_x = x_a if width > 0 else x_a + width
+        min_y = y_a if height > 0 else y_a + height
+        max_x = x_b if width > 0 else x_a
+        max_y = y_b if height > 0 else y_a
+
+        return (min_x, min_y, max_x, max_y)

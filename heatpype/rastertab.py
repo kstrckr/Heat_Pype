@@ -54,20 +54,9 @@ class Raster_Tab(ttk.Frame):
         if self.crop_bounding_box:
             self.draw_crop_box(self.crop_bounding_box)
 
-    def update_preview(self):
-        self.source_imng = self.pm.sourceImage
-        self.processed_img = self.pm.tkImage
-        self.source_canvas.create_image(0, 0, image=self.source_imng, anchor=tk.NW)
-        self.processed_canvas.create_image(0, 0, image=self.processed_img, anchor=tk.NW)
-        
-        # height = self.pm.tkImage.height() if self.pm.tkImage.height() < 600 else 600
-        height = self.pm.tkImage.height()
-        self.processed_canvas.configure(height=height)
-        self.source_canvas.configure(height=height)
-
     def define_crop_box(self, e):
         self.crop_bounding_box.update_dynamic_point(e.x, e.y)
-        self.pm.apply_crop(self.crop_bounding_box.get_points())
+        self.pm.apply_crop(self.crop_bounding_box)
         self.update_preview()
         self.draw_crop_box(self.crop_bounding_box)
 
@@ -75,12 +64,10 @@ class Raster_Tab(ttk.Frame):
         self.crop_bounding_box = Crop_Bounding_Box(e.x, e.y)
 
     def set_translation_reference_point(self, e):
-
         if self.crop_bounding_box:
             self.crop_bounding_box.sett_reference_popint(e.x, e.y)
 
     def translate_crop_box(self, e):
-
         if self.crop_bounding_box:
             ref_x = self.crop_bounding_box.reference_x
             ref_y = self.crop_bounding_box.reference_y
@@ -96,7 +83,7 @@ class Raster_Tab(ttk.Frame):
                 delta_y = 0 - (ref_y - e.y)
 
             self.crop_bounding_box.update_all_points(delta_x, delta_y)
-            self.pm.apply_crop(self.crop_bounding_box.get_points())
+            self.pm.apply_crop(self.crop_bounding_box)
             print(delta_x, delta_y)
             self.update_preview()
             self.draw_crop_box(self.crop_bounding_box)
@@ -106,7 +93,14 @@ class Raster_Tab(ttk.Frame):
         x1, y1 = static_point
         x2, y2 = dynamic_point
         self.source_canvas.delete("crop_box")
-
         self.source_canvas.create_rectangle((x1, y1, x2, y2), width=1, outline="white", tag="crop_box")
         self.source_canvas.create_rectangle((x1-1, y1-1, x2+1, y2+1), width=1, outline="black", tag="crop_box")
-    
+
+    def update_preview(self):
+        self.source_imng = self.pm.sourceImage
+        self.processed_img = self.pm.tkImage
+        self.source_canvas.create_image(0, 0, image=self.source_imng, anchor=tk.NW)
+        self.processed_canvas.create_image(0, 0, image=self.processed_img, anchor=tk.NW)
+        height = self.pm.tkImage.height()
+        self.processed_canvas.configure(height=height)
+        self.source_canvas.configure(height=height)
