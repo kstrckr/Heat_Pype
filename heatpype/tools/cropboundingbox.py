@@ -18,7 +18,7 @@ class Crop_Bounding_Box:
         self.dynamic_x = new_x
         self.dynamic_y = new_y
 
-    def sett_reference_popint(self, ref_x, ref_y):
+    def set_reference_point(self, ref_x, ref_y):
         self.reference_x = ref_x
         self.reference_y = ref_y
 

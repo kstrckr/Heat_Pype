@@ -66,7 +66,7 @@ class Raster_Tab(ttk.Frame):
 
     def set_translation_reference_point(self, e):
         if self.crop_bounding_box:
-            self.crop_bounding_box.sett_reference_popint(e.x, e.y)
+            self.crop_bounding_box.set_reference_point(e.x, e.y)
 
     def translate_crop_box(self, e):
         if self.crop_bounding_box:
@@ -85,7 +85,6 @@ class Raster_Tab(ttk.Frame):
 
             self.crop_bounding_box.update_all_points(delta_x, delta_y)
             self.pm.apply_crop(self.crop_bounding_box)
-            print(delta_x, delta_y)
             self.update_preview()
             self.draw_crop_box(self.crop_bounding_box)
 
