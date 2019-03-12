@@ -8,6 +8,9 @@ class Crop_Bounding_Box:
         self.dynamic_x = initial_x
         self.dynamic_y = initial_y
 
+        self.reference_x = (self.initial_x + self.dynamic_x) / 2
+        self.reference_y = (self.initial_y + self.dynamic_y) / 2
+
     def __str__(self):
         width = self.dynamic_x - self.initial_x
         height = self.dynamic_y - self.initial_y

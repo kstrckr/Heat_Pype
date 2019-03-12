@@ -35,6 +35,10 @@ class Pil_Image():
         
         self.refresh_output()
 
+    def reset_crop(self):
+        self.crop_values = None
+        self.refresh_output()
+
     def apply_crop(self, crop_bounding_box):
         min_x, min_y, max_x, max_y = crop_bounding_box.return_ordered_coordinates()
         self.crop_values = (min_x, min_y, max_x, max_y)

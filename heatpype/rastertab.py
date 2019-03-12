@@ -34,6 +34,7 @@ class Raster_Tab(ttk.Frame):
         self.processed_canvas = tk.Canvas(self, width=self.printer_width)
         self.processed_canvas.grid(column=3, row=0, rowspan=4, padx=10, pady=10)
 
+        self.source_canvas.bind("<Double-Button-1>", self.reset_crop)
         self.source_canvas.bind("<Button-1>", self.initiate_crop)
         self.source_canvas.bind("<B1-Motion>", self.define_crop_box)
         self.source_canvas.bind("<B3-Motion>", self.translate_crop_box)
@@ -52,7 +53,11 @@ class Raster_Tab(ttk.Frame):
             self.pm.rotate_image(-90)
             self.update_preview()
         if self.crop_bounding_box:
-            self.draw_crop_box(self.crop_bounding_box)
+            self.draw_crop_box()
+
+    def reset_crop(self, e):
+        self.pm.reset_crop()
+        self.update_preview()
 
     def initiate_crop(self, e):
         self.crop_bounding_box = Crop_Bounding_Box(e.x, e.y)
@@ -62,7 +67,7 @@ class Raster_Tab(ttk.Frame):
             self.crop_bounding_box.update_dynamic_point(e.x, e.y)
             self.pm.apply_crop(self.crop_bounding_box)
             self.update_preview()
-            self.draw_crop_box(self.crop_bounding_box)
+            self.draw_crop_box()
 
     def set_translation_reference_point(self, e):
         if self.crop_bounding_box:
@@ -86,12 +91,10 @@ class Raster_Tab(ttk.Frame):
             self.crop_bounding_box.update_all_points(delta_x, delta_y)
             self.pm.apply_crop(self.crop_bounding_box)
             self.update_preview()
-            self.draw_crop_box(self.crop_bounding_box)
+            self.draw_crop_box()
 
-    def draw_crop_box(self, crop_bounding_box):
-        static_point, dynamic_point = self.crop_bounding_box.get_points()
-        x1, y1 = static_point
-        x2, y2 = dynamic_point
+    def draw_crop_box(self):
+        x1, y1, x2, y2 = self.crop_bounding_box.return_ordered_coordinates()
         self.source_canvas.delete("crop_box")
         self.source_canvas.create_rectangle((x1, y1, x2, y2), width=1, outline="white", tag="crop_box")
         self.source_canvas.create_rectangle((x1-1, y1-1, x2+1, y2+1), width=1, outline="black", tag="crop_box")
