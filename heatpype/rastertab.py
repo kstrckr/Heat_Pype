@@ -43,21 +43,19 @@ class Raster_Tab(ttk.Frame):
     def get_image_path(self):
         self.file_path = fd.askopenfilename()
         self.pm = Pil_Image(self.file_path)
-        self.update_preview()
+        self.draw_canvases()
 
     def rotate(self, direction):
         if direction < 0:
             self.pm.rotate_image(90)
-            self.update_preview()
+            self.draw_canvases()
         else:
             self.pm.rotate_image(-90)
-            self.update_preview()
-        if self.crop_bounding_box:
-            self.draw_crop_box()
+            self.draw_canvases()
 
     def reset_crop(self, e):
         self.pm.reset_crop()
-        self.update_preview()
+        self.draw_canvases()
 
     def initiate_crop(self, e):
         self.crop_bounding_box = Crop_Bounding_Box(e.x, e.y)
@@ -66,8 +64,7 @@ class Raster_Tab(ttk.Frame):
         if self.crop_bounding_box:
             self.crop_bounding_box.update_dynamic_point(e.x, e.y)
             self.pm.apply_crop(self.crop_bounding_box)
-            self.update_preview()
-            self.draw_crop_box()
+            self.draw_canvases()
 
     def set_translation_reference_point(self, e):
         if self.crop_bounding_box:
@@ -90,14 +87,7 @@ class Raster_Tab(ttk.Frame):
 
             self.crop_bounding_box.update_all_points(delta_x, delta_y)
             self.pm.apply_crop(self.crop_bounding_box)
-            self.update_preview()
-            self.draw_crop_box()
-
-    def draw_crop_box(self):
-        x1, y1, x2, y2 = self.crop_bounding_box.return_ordered_coordinates()
-        self.source_canvas.delete("crop_box")
-        self.source_canvas.create_rectangle((x1, y1, x2, y2), width=1, outline="white", tag="crop_box")
-        self.source_canvas.create_rectangle((x1-1, y1-1, x2+1, y2+1), width=1, outline="black", tag="crop_box")
+            self.draw_canvases()
 
     def update_preview(self):
         self.source_imng = self.pm.sourceImage
@@ -107,3 +97,16 @@ class Raster_Tab(ttk.Frame):
         height = self.pm.tkImage.height()
         self.processed_canvas.configure(height=height)
         self.source_canvas.configure(height=height)
+
+    def draw_crop_box(self):
+        x1, y1, x2, y2 = self.crop_bounding_box.return_ordered_coordinates()
+        self.source_canvas.delete("crop_box")
+        self.source_canvas.create_rectangle((x1, y1, x2, y2), width=1, outline="white", tag="crop_box")
+        self.source_canvas.create_rectangle((x1-1, y1-1, x2+1, y2+1), width=1, outline="black", tag="crop_box")
+
+
+
+    def draw_canvases(self):
+        self.update_preview()
+        if self.crop_bounding_box:
+            self.draw_crop_box()

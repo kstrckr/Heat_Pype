@@ -10,7 +10,13 @@ class Pil_Image():
     def __init__(self, path_to_image):
         self.image_rotation = 0
         self.pil_img = Image.open(path_to_image)
+        
+        self.converted_output = None
         self.crop_values = None
+        self.printable_output = None
+        self.sourceImage = None
+        self.tkImage = None
+
         self.refresh_output()
 
     def return_printable_bytes(self):
@@ -66,4 +72,3 @@ class Pil_Image():
         self.converted_output = preprocessed_input.convert('1')
         self.tkImage = ImageTk.PhotoImage(self.converted_output)
         self.sourceImage = ImageTk.PhotoImage(resized_input)
-
