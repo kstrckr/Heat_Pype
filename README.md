@@ -2,6 +2,8 @@
 A gui app for processing and printing images on serial Epson thermal printers
 
 ![Alt text](/screenshots/Capture.PNG "Heat Pype UI Screenshot")
+![Alt text](/screenshots/cropped.PNG "Heat Pype UI Screenshot")
+
 
 1. Activate your virtual environment of choice, preferably https://docs.python.org/3/library/venv.html
 2. Install dependencies via `pip install -r requirements.txt`
