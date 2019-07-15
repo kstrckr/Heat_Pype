@@ -1,4 +1,4 @@
-#Heat Pype
+# Heat Pype
 A gui app for processing and printing images on serial Epson thermal printers
 
 ![Alt text](/screenshots/Capture.PNG "Heat Pype UI Screenshot")
