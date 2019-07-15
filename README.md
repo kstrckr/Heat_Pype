@@ -1,5 +1,5 @@
 # Heat Pype
-A gui app for processing and printing images on serial Epson thermal printers
+A gui app for processing and printing images on Epson thermal printers via serial communication. 
 
 ![Alt text](/screenshots/Capture.PNG "Heat Pype UI Screenshot")
 ![Alt text](/screenshots/cropped.PNG "Heat Pype UI Screenshot")
